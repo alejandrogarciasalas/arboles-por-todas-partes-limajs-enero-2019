@@ -17,7 +17,7 @@ export { yellow as theme } from 'mdx-deck/themes'
   <Box px={1} w={2/3}>
   <ul>
     <li>Estudiante de Computer Science en Berkeley</li>
-    <li>He hechos internships en Pinterest y Airbnb trabajando en diferetens partes del stack</li>
+    <li>He hechos internships en Pinterest y Airbnb</li>
     <li>Fui voluntario y después instructor en Laboratoria</li>
     <li>Aprendí a programar haciendo juegos para iPhone</li>
   </ul>
@@ -38,7 +38,7 @@ En resumén es una forma de representar código en un árbol
 ```
 ---
 
-##  ¿Repaso: que es un Árbol?
+##  Repaso: ¿Qué es un Árbol?
 ![binary-tree](https://upload.wikimedia.org/wikipedia/commons/f/f7/Binary_tree.svg)
 
 Ejemplos de Árboles en programación:
@@ -75,7 +75,7 @@ function bar(d) {
 ### Todos los APIs son similares
 
 ```js
-tree = acorn.parse("console.log('limajs'));```
+tree = acorn.parse("console.log('limajs'));
 ```
 
 
@@ -178,7 +178,73 @@ const ast = parse(code);
 
 const output = generate(ast, { /* options */ }, code);
 ```
+---
+## Un plugin es simplemente una función
+[babel-plugin-transform-arrow-functions](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-arrow-functions)
 
+Transpila arrowFunctions ES5 a ES5
+
+```js
+import { declare } from "@babel/helper-plugin-utils";
+import type NodePath from "@babel/traverse";
+
+export default declare((api, options) => {
+  api.assertVersion(7);
+
+  const { spec } = options;
+  return {
+    name: "transform-arrow-functions",
+
+    visitor: {
+      ArrowFunctionExpression(
+        path: NodePath<BabelNodeArrowFunctionExpression>,
+      ) {
+        if (!path.isArrowFunctionExpression()) return;
+
+        path.arrowFunctionToExpression({
+          allowInsertArrow: false,
+          specCompliant: !!spec,
+        });
+      },
+    },
+  };
+
+```
+---
+## Plugin para remover todos los statements del Debugger
+```js
+function Foo() {
+  debugger;
+  console.log('LimaJS!');
+}
+```
+->
+```js
+function Foo() {
+  console.log('LimaJS!');
+}
+```
+[AST Explorer](https://astexplorer.net/#/gist/76e7d12cbdb9edda0266f5a4098ceaf4/803317c00b12bb3931b1d512f4795a9435282987)
+---
+## Transform para remover Debugger
+
+```js
+module.exports = function () {
+  return {
+    visitor: {
+      DebuggerStatement(path) {
+        path.remove();
+      }
+    }
+  }
+}
+```
+
+```notes
+A Path is an object representation of the link between two nodes.
+```
+---
+# demo en vivo
 ---
 
 ## Creditos
