@@ -50,27 +50,11 @@ Ejemplos de Árboles en programación:
 
 ## ¿Como conseguimos el AST?
 Source Code -> Parser -> Tree
-
----
-export default Split
-
-```js
-function foo(d) {
-  d += 3;
-    return d+999
-}
-function bar(d) {
-    return d*100
-}
-```
-![javascript-visualizer](https://i.stack.imgur.com/A9SZd.png)
-
 ---
 ## ¿Como funcionan los ASTs en JavaScript?
 
 * Diferentes Parsers en JavaScript: [Acorn](https://github.com/acornjs/acorn), [Esprima](http://esprima.org/), [ESpree](https://github.com/eslint/espree) etc.
 * Todos los parsers siguen el [ESTree Spec](https://github.com/estree/estree)
-* Demo: [AST Explorer](https://astexplorer.net/)
 
 ### Todos los APIs son similares
 
@@ -84,6 +68,16 @@ Espree es inspirado en esprima y construido sobre acorn.
 Eslint usa Espree
 Babel Parser (formerly babylon) esta basado en acorn.
 ```
+---
+export default Split
+
+```js
+var a = 3;
+a + 5
+```
+Demo: [AST Explorer](https://astexplorer.net/#/gist/c81311064b70c382ca0885ccf928e274/c50bf0dffb7ccc5439d5026191ef3f5304a18ca9)
+![javascript-visualizer](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/04/1459934370ast.png)
+[Creditos: Understanding ASTs by Building Your Own Babel Plugin](https://www.sitepoint.com/understanding-asts-building-babel-plugin/)
 
 ---
 
@@ -161,8 +155,10 @@ traverse(ast, {
 });
 ```
 ---
-## Traversing the tree
-ejemplo: pre-order traversal
+export default Split
+
+## Traversing the tree – ejemplo: pre-order traversal
+
 ![pre-order-traversal](https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Sorted_binary_tree_inorder.svg/400px-Sorted_binary_tree_inorder.svg.png)
 
 ---
@@ -179,6 +175,8 @@ const ast = parse(code);
 const output = generate(ast, { /* options */ }, code);
 ```
 ---
+export default Split
+
 ## Un plugin es simplemente una función
 [babel-plugin-transform-arrow-functions](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-arrow-functions)
 
