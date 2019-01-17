@@ -1,7 +1,9 @@
 import { Appear, Head } from 'mdx-deck'
-import { FullScreenCode, Invert, Split, Horizontal } from 'mdx-deck/layouts'
+import { FullScreenCode, Invert, Split, SplitRight, Horizontal } from 'mdx-deck/layouts'
+import { CodeSurfer } from "mdx-deck-code-surfer"
+import nightOwl from "prism-react-renderer/themes/nightOwl"
 
-export { yellow as theme } from 'mdx-deck/themes'
+export { default as theme } from './theme'
 
 <Head>
   <title>Árboles por todas partes: cómo librerias populares de JavaScript hacen uso de los ASTs</title>
@@ -9,17 +11,33 @@ export { yellow as theme } from 'mdx-deck/themes'
 
 # Árboles por todas partes
 ## cómo librerias populares de JavaScript hacen uso de los ASTs
----
 
-## Sobre mí
-* Estudiante de Computer Science en Berkeley
-* He hechos internships en Pinterest y Airbnb
-* Fui voluntario y después instructor en Laboratoria
-* Aprendí a programar haciendo juegos para iPhone
+Link: [https://arboles-por-todas-partes.netlify.com/](https://arboles-por-todas-partes.netlify.com/)
+---
+export default SplitRight
 
 ![programmer-cat](https://www.rforcats.net/assets/img/programmer.png)
 
+## Sobre mí
+* Estudiante de Computer Science en UC Berkeley
+* He hechos internships en Pinterest y Airbnb
+* Fui instructor en Laboratoria
+* Aprendí a programar haciendo juegos para iPhone
+* Twitter – [@findAlejandro](https://twitter.com/findalejandro)
+* GitHub – [@alejandrogarciasalas](https://github.com/alejandrogarciasalas)
 
+---
+
+## Motivación: ¿Quién ha usado alguna de las siguiente tecnologías?
+<ul>
+  <Appear>
+    <p>Babel</p>
+    <p>ESLint</p>
+    <p>jscodeshift</p>
+    <p>Uglify</p>
+    <b>Todas usan ASTs!</b>
+  </Appear>
+</ul>
 ---
 
 ## ¿Qué es un AST?
@@ -42,7 +60,10 @@ Ejemplos de Árboles en programación:
 ---
 
 ## ¿Como conseguimos el AST?
-Source Code -> Parser -> Tree
+Source Code → Parser → Tree
+
+Un parser toma código (texto) "rompe" su estructura en pedazos más pequeños llamado tokens y arma una estructura de datos con estos pedazos.
+
 ---
 ## ¿Como funcionan los ASTs en JavaScript?
 
@@ -50,7 +71,7 @@ Source Code -> Parser -> Tree
 * Todos los parsers siguen el [ESTree Spec](https://github.com/estree/estree)
 
 ### Todos los APIs son similares
-
+Por Ejemplo:
 ```js
 tree = acorn.parse("console.log('limajs'));
 ```
@@ -60,25 +81,26 @@ tree = acorn.parse("console.log('limajs'));
 Espree es inspirado en esprima y construido sobre acorn.
 Eslint usa Espree
 Babel Parser (formerly babylon) esta basado en acorn.
+ESTree SPec es un community standard
 ```
 ---
-export default Split
+export default SplitRight
+
+![javascript-visualizer](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/04/1459934370ast.png)
+[Imagen: Understanding ASTs by Building Your Own Babel Plugin](https://www.sitepoint.com/understanding-asts-building-babel-plugin/)
 
 ```js
 var a = 3;
 a + 5
 ```
 Demo: [AST Explorer](https://astexplorer.net/#/gist/c81311064b70c382ca0885ccf928e274/c50bf0dffb7ccc5439d5026191ef3f5304a18ca9)
-![javascript-visualizer](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/04/1459934370ast.png)
-[Creditos: Understanding ASTs by Building Your Own Babel Plugin](https://www.sitepoint.com/understanding-asts-building-babel-plugin/)
-
 ---
 
 ## Usos de ASTs
-* Compiladores e Interpretes
-* Transformaciones de código en build-time (ejemplo: Babel, minifier)
-* migración de código (ejemplo: Codeshift)
-* Inspección de código (ejemplo: eslint)
+* Compiladores e Intérpretes
+* Transformaciones de código en build-time (ejemplo: [Babel](https://babeljs.io/), minifiers)
+* migración de código (ejemplo: [jscodeshift](https://github.com/facebook/jscodeshift))
+* Inspección de código (ejemplo: [ESLint](https://eslint.org/))
 ---
 
 ## Demo: Crear un Babel Plugin
@@ -104,7 +126,7 @@ ES5
 ## Como funciona Babel?
 ![https://www.sitepoint.com/understanding-asts-building-babel-plugin/](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/04/1459949808babel.png)
 
-[Creditos: Understanding ASTs by Building Your Own Babel Plugin](https://www.sitepoint.com/understanding-asts-building-babel-plugin/)
+[Imagen: Understanding ASTs by Building Your Own Babel Plugin](https://www.sitepoint.com/understanding-asts-building-babel-plugin/)
 
 ---
 ## Parse
@@ -126,8 +148,8 @@ require("@babel/parser").parse("code", {
 
 
 ---
-## Transform
-Este paso usa [@babel/traverse](https://babeljs.io/docs/en/babel-traverse)  y es responsable de encotrar, remplazar, remover o añadir nodos al AST.
+
+export default SplitRight
 
 ```js
 import * as parser from "@babel/parser";
@@ -147,6 +169,10 @@ traverse(ast, {
   }
 });
 ```
+
+## Transform
+Este paso usa [@babel/traverse](https://babeljs.io/docs/en/babel-traverse)  y es responsable de encotrar, remplazar, remover o añadir nodos al AST.
+
 ---
 export default Split
 
@@ -168,12 +194,9 @@ const ast = parse(code);
 const output = generate(ast, { /* options */ }, code);
 ```
 ---
-export default Split
+export default SplitRight
 
-## Un plugin es simplemente una función
-[babel-plugin-transform-arrow-functions](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-arrow-functions)
-
-Transpila arrowFunctions ES5 a ES5
+<div style={{ fontSize: '1.5rem' }}>
 
 ```js
 import { declare } from "@babel/helper-plugin-utils";
@@ -199,9 +222,15 @@ export default declare((api, options) => {
       },
     },
   };
-
 ```
+</div>
+
+## Un plugin es simplemente una función
+[babel-plugin-transform-arrow-functions](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-arrow-functions)
+
+Transpila arrowFunctions ES2015 a ES5
 ---
+
 ## Plugin para remover todos los statements del Debugger
 ```js
 function Foo() {
@@ -209,7 +238,7 @@ function Foo() {
   console.log('LimaJS!');
 }
 ```
-->
+↓
 ```js
 function Foo() {
   console.log('LimaJS!');
@@ -238,10 +267,13 @@ A Path is an object representation of the link between two nodes.
 # demo en vivo
 ---
 
-## Creditos
+## Créditos
 Charla inspirada por
 * [Jamund Ferguson: Harnessing The Power of Abstract Syntax Trees | UtahJS 2015](https://www.youtube.com/watch?v=8uOXIM4giH8&t=444s)
 * [Yonatan Mevorach: Master the Art of the AST and Take Control of Your JS | Full Stack Fest 2017](https://www.youtube.com/watch?v=C06MohLG_3s&t=728s)
 * [Sebastian McKenzie: JavaScript Transformation | JSConf US 2015](https://www.youtube.com/watch?v=rKuNbEwoQfQ&t=1009s)
 
-[Documentación de Babel](https://babeljs.io/docs/)
+* [Documentación de Babel](https://babeljs.io/docs/)
+
+---
+## ¿Preguntas?
