@@ -14,9 +14,9 @@ export { default as theme } from './theme'
 
 Link: [https://arboles-por-todas-partes.netlify.com/](https://arboles-por-todas-partes.netlify.com/)
 ---
-export default SplitRight
+export default Split
 
-![programmer-cat](https://www.rforcats.net/assets/img/programmer.png)
+<div style={{ paddingLeft: '3em' }}>
 
 ## Sobre mí
 * Estudiante de Computer Science en UC Berkeley
@@ -25,6 +25,10 @@ export default SplitRight
 * Aprendí a programar haciendo juegos para iPhone
 * Twitter – [@findAlejandro](https://twitter.com/findalejandro)
 * GitHub – [@alejandrogarciasalas](https://github.com/alejandrogarciasalas)
+
+</div>
+
+![programmer-cat](https://www.rforcats.net/assets/img/programmer.png)
 
 ---
 
@@ -84,16 +88,29 @@ Babel Parser (formerly babylon) esta basado en acorn.
 ESTree SPec es un community standard
 ```
 ---
-export default SplitRight
+export default Split
 
-![javascript-visualizer](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/04/1459934370ast.png)
-[Imagen: Understanding ASTs by Building Your Own Babel Plugin](https://www.sitepoint.com/understanding-asts-building-babel-plugin/)
+<div style={{paddingLeft: '3rem', paddingRight: '2rem'}}>
 
 ```js
 var a = 3;
 a + 5
 ```
 Demo: [AST Explorer](https://astexplorer.net/#/gist/c81311064b70c382ca0885ccf928e274/c50bf0dffb7ccc5439d5026191ef3f5304a18ca9)
+
+</div>
+
+<div style={{paddingLeft: '2rem', paddingRight: '4rem'}}>
+
+![javascript-visualizer](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/04/1459934370ast.png)
+
+<div style={{paddingTop: '0.5rem', fontSize: '1.2rem'}}>
+
+[Imagen: Understanding ASTs by Building Your Own Babel Plugin](https://www.sitepoint.com/understanding-asts-building-babel-plugin/)
+
+</div>
+
+</div>
 ---
 
 ## Usos de ASTs
@@ -151,6 +168,8 @@ require("@babel/parser").parse("code", {
 
 export default SplitRight
 
+<div style={{ paddingLeft: '1rem', paddingRight: '1rem' }}>
+
 ```js
 import * as parser from "@babel/parser";
 import traverse from "@babel/traverse";
@@ -169,6 +188,8 @@ traverse(ast, {
   }
 });
 ```
+
+</div>
 
 ## Transform
 Este paso usa [@babel/traverse](https://babeljs.io/docs/en/babel-traverse)  y es responsable de encotrar, remplazar, remover o añadir nodos al AST.
@@ -196,7 +217,7 @@ const output = generate(ast, { /* options */ }, code);
 ---
 export default SplitRight
 
-<div style={{ fontSize: '1.5rem' }}>
+<div style={{ fontSize: '1.5rem', paddingLeft: '1rem', paddingRight: '1rem' }}>
 
 ```js
 import { declare } from "@babel/helper-plugin-utils";
@@ -223,6 +244,7 @@ export default declare((api, options) => {
     },
   };
 ```
+
 </div>
 
 ## Un plugin es simplemente una función
