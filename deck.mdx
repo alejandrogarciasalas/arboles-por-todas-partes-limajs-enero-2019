@@ -12,7 +12,8 @@ export { default as theme } from './theme'
 # Árboles por todas partes
 ## cómo librerias populares de JavaScript hacen uso de los ASTs
 
-Link: [https://arboles-por-todas-partes.netlify.com/](https://arboles-por-todas-partes.netlify.com/)
+Alejandro García Salas
+
 ---
 export default Split
 
@@ -59,25 +60,31 @@ En resumén es una forma de representar código en un árbol
 Ejemplos de Árboles en programación:
 * Document Object Model (DOM)
 * Sistema de Archivos
-* Árbol de dependencia
+* Árbol de dependencias
 
 ---
 
 ## ¿Como conseguimos el AST?
 Source Code → Parser → Tree
 
-Un parser toma código (texto) "rompe" su estructura en pedazos más pequeños llamado tokens y arma una estructura de datos con estos pedazos.
+Un parser toma código (texto), siguiendo ciertas reglas, "rompe" su estructura en pedazos más pequeños llamado tokens y arma una estructura de datos con estos pedazos.
 
 ---
 ## ¿Como funcionan los ASTs en JavaScript?
 
-* Diferentes Parsers en JavaScript: [Acorn](https://github.com/acornjs/acorn), [Esprima](http://esprima.org/), [ESpree](https://github.com/eslint/espree) etc.
-* Todos los parsers siguen el [ESTree Spec](https://github.com/estree/estree)
+* Diferentes Parsers en JavaScript: [Esprima](http://esprima.org/), [ESpree](https://github.com/eslint/espree), [Acorn](https://github.com/acornjs/acorn) etc.
+* Todos los parsers siguen el [ESTree Spec](https://github.com/estree/estree) o el [Parser API](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API).
+
+``` notes
+en este caso la estructura de datos en un árbol
+
+los interpretes y compiladores usan ASTs por ejemplo para verificar que la sintaxis de tu codigo este correcta
+```
 
 ### Todos los APIs son similares
 Por Ejemplo:
 ```js
-tree = acorn.parse("console.log('limajs'));
+tree = acorn.parse("console.log('limajs')");
 ```
 
 
@@ -85,7 +92,7 @@ tree = acorn.parse("console.log('limajs'));
 Espree es inspirado en esprima y construido sobre acorn.
 Eslint usa Espree
 Babel Parser (formerly babylon) esta basado en acorn.
-ESTree SPec es un community standard
+ESTree Spec es un community standard
 ```
 ---
 export default Split
@@ -192,7 +199,7 @@ traverse(ast, {
 </div>
 
 ## Transform
-Este paso usa [@babel/traverse](https://babeljs.io/docs/en/babel-traverse)  y es responsable de encotrar, remplazar, remover o añadir nodos al AST.
+Este paso usa [@babel/traverse](https://babeljs.io/docs/en/babel-traverse)  y es responsable de encontrar, remplazar, remover o añadir nodos al AST.
 
 ---
 export default Split
@@ -296,6 +303,13 @@ Charla inspirada por
 * [Sebastian McKenzie: JavaScript Transformation | JSConf US 2015](https://www.youtube.com/watch?v=rKuNbEwoQfQ&t=1009s)
 
 * [Documentación de Babel](https://babeljs.io/docs/)
+
+---
+## Links
+* Slides: [https://arboles-por-todas-partes.netlify.com/](https://arboles-por-todas-partes.netlify.com/)
+* [GitHub (demo & slides)](https://github.com/alejandrogarciasalas/arboles-por-todas-partes-limajs-enero-2019)
+* Twitter – [@findAlejandro](https://twitter.com/findalejandro)
+* GitHub – [@alejandrogarciasalas](https://github.com/alejandrogarciasalas)
 
 ---
 ## ¿Preguntas?
